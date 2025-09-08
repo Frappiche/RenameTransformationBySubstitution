@@ -14,26 +14,20 @@ function RenameTransformationBySubstitution() {
 
     // Key.String.Drawing.name(int elementld, int drawingIndex) leementld serai l'id unique de l'élément ?
 
-    var READ = _drawing
 
-    var selected_node = selection.selectedNode(0)
-    FSH_show_attributes(selected_node)
+    var SelectNodeName = node.getName(selection.selectedNode(0))
+    var CurentFrame = Timeline.firstFrameSel
 
+    MessageLog.trace("Tu as sélectionné " + SelectNodeName + " à la frame "+ CurentFrame)
 
+    var CurrentSub = FSH_get_exposed_sub(selection.selectedNode(0),CurentFrame)
+    
+    
 
-    function filtreReadInSelection(){
-        if (READ != node.getNodes(["READ"])) {
+/*
+   
 
-            MessageLog.trace("Please, select a drawing")
-
-        } else {
-            MessageLog.trace("You have successfuly got the drawing")
-            return _drawing
-        }
-    }
-
-
-    var DefName = FSH_get_exposed_substitution(_drawing)
+    
 
     MessageLog.trace("You have found the name of the substitution: " + DefName)
 
@@ -43,7 +37,7 @@ function RenameTransformationBySubstitution() {
 
     //MessageLog.trace("You have succesfully renamed deformer with \n"+ DefName )
 
-
+*/
 }
 
 
