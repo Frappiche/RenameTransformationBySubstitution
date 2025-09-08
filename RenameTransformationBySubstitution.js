@@ -2,7 +2,7 @@ function RenameTransformationBySubstitution() {
 
     /*This script 
     take the _read that is selected, 
-    get his current substition name(_read)
+    get his current substition name(_read) DOOOONE
     function getDeformer = select the deformer that is just above in the hierarchie of the read(_read)
     function find_t_name = then get the current transformation name (deformer)
     and rename it by the current (_substitution name)
@@ -14,15 +14,25 @@ function RenameTransformationBySubstitution() {
 
     // Key.String.Drawing.name(int elementld, int drawingIndex) leementld serai l'id unique de l'élément ?
 
+    //var SelectedRead =selection.selectedNode(0)
+    //var SelectedReadName = node.getName(SelectedRead)
+    var CurrentFrame = Timeline.firstFrameSel
 
-    var SelectNodeName = node.getName(selection.selectedNode(0))
-    var CurentFrame = Timeline.firstFrameSel
+    MessageLog.trace("Tu as sélectionné " + SelectedReadName + " à la frame "+ CurrentFrame)
 
-    MessageLog.trace("Tu as sélectionné " + SelectNodeName + " à la frame "+ CurentFrame)
-
-    var CurrentSub = FSH_get_exposed_sub(selection.selectedNode(0),CurentFrame)
+    var CurrentSub = FSH_get_exposed_sub(SelectedRead,CurrentFrame)
+    MessageLog.trace("La substitution actuelle est "+ CurrentSub)
     
-    
+
+    //get nodeparent but it has to be on the hierarchy with the links, so the node that is linked on the input
+    //open if it's a group and if it's named " Deformation " + SelectNodeName
+    //find transformation_switch 
+    //return SelectedTranSwitch
+
+    var SelectedTranSwitch = selection.selectedNode(0)
+
+    var TranSwitchAttr = FSH_show_attributes(SelectedTranSwitch,CurrentFrame)
+
 
 /*
    
@@ -48,7 +58,7 @@ function FSH_get_exposed_sub(_node,_frame){
     // return all the name of the exposed sub at a frame
     const aframe = _frame != undefined ? _frame : frame.current()
     if(node.type(_node)!="READ"){
-        MessageLog.trace("Error node "+_node+" is not a READ ")
+        //MessageLog.trace("Error node "+_node+" is not a READ ")
         return 
     }
     var previously_selected_nodes = selection.selectedNodes()
@@ -58,7 +68,7 @@ function FSH_get_exposed_sub(_node,_frame){
     var sub_name = column.getEntry(readcol,1,aframe);
     selection.clearSelection()
     selection.addNodesToSelection(previously_selected_nodes)
-    MessageLog.trace("return ("+sub_name+")")
+    //MessageLog.trace("return ("+sub_name+")")
     return sub_name
 }
 
