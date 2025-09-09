@@ -14,47 +14,48 @@ function RenameTransformationBySubstitution() {
 
     // Key.String.Drawing.name(int elementld, int drawingIndex) leementld serai l'id unique de l'élément ?
 
-    //var SelectedRead =selection.selectedNode(0)
-    //var SelectedReadName = node.getName(SelectedRead)
+    var SelectedRead =selection.selectedNode(0)
+    var SelectedReadName = node.getName(SelectedRead)
     var CurrentFrame = Timeline.firstFrameSel
 
-    MessageLog.trace("Tu as sélectionné " + SelectedReadName + " à la frame "+ CurrentFrame)
+    //MessageLog.trace("Tu as sélectionné " + SelectedReadName + " à la frame "+ CurrentFrame)
 
-    var CurrentSub = FSH_get_exposed_sub(SelectedRead,CurrentFrame)
-    MessageLog.trace("La substitution actuelle est "+ CurrentSub)
+    var CurrentSubName = FSH_get_exposed_sub(SelectedRead,CurrentFrame)
+    //MessageLog.trace("La substitution actuelle est "+ CurrentSub)
     
 
-    //get nodeparent but it has to be on the hierarchy with the links, so the node that is linked on the input
-    //open if it's a group and if it's named " Deformation " + SelectNodeName
-    //find transformation_switch 
-    //return SelectedTranSwitch
+    //get the transformation switch attributes
+    var DefGroup = get_Deformation_path(SelectedRead) 
 
-    var SelectedTranSwitch = selection.selectedNode(0)
+    TransSwitch = DefGroup + "/Transformation-Switch"
+    MessageLog.trace(TransSwitch)
 
-    var TranSwitchAttr = FSH_show_attributes(SelectedTranSwitch,CurrentFrame)
 
+    var TransSwitchAttr = FSH_show_attributes(TransSwitch,CurrentFrame)
+
+    MessageLog.trace(TransSwitchAttr)
 
 /*
-   
 
-    
-
-    MessageLog.trace("You have found the name of the substitution: " + DefName)
-
-    go_up_hierarchie()
-    SetCurrentTransformationName(DefName)
+    SetCurrentTransformationName(CurrentSubName)
 
 
-    //MessageLog.trace("You have succesfully renamed deformer with \n"+ DefName )
+    //MessageLog.trace("You have succesfully renamed deformer with \n"+ CurrentSubName )
 
 */
 }
 
+function get_Deformation_path(_node) {
+    var NodeName = node.getName(_node)
+    var PathDefGroup = _node.split(NodeName).join("Deformation-" + NodeName)
+    //MessageLog.trace("Le chemin du déformeur lié au drawing sélectionné est " + PathDefGroup)
+    return PathDefGroup
+}
 
 
 function FSH_get_exposed_sub(_node,_frame){
     
-    MessageLog.trace("FSH_get_exposed_sub ("+_node+") ("+_frame+")")
+    //MessageLog.trace("FSH_get_exposed_sub ("+_node+") ("+_frame+")")
     // return all the name of the exposed sub at a frame
     const aframe = _frame != undefined ? _frame : frame.current()
     if(node.type(_node)!="READ"){
@@ -101,6 +102,6 @@ function FSH_show_attributes(_node,_frame){
     }
     msg+="\n--------------------------------------------------------------------------\n"
     MessageLog.trace(msg)
-    MessageBox.information(msg)
+    //MessageBox.information(msg)
     return table
 }
