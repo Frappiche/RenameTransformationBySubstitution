@@ -33,7 +33,7 @@ function RenameTransformationBySubstitution() {
 
     var TransSwitchAttr = FSH_show_attributes(TransSwitch,CurrentFrame)
 
-    MessageLog.trace(TransSwitchAttr)
+    MessageLog.trace(MessageLog.trace(TransSwitchAttr))
 
 /*
 
